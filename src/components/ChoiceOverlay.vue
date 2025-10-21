@@ -113,12 +113,9 @@ function selectChoice(choice) {
   font-size: 40px;
   margin-bottom: 48px;
   text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  color: white;
   font-weight: bold;
-  background: linear-gradient(45deg, #fff, #f0f0f0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   animation: fadeInUp 0.6s ease;
 }
 
