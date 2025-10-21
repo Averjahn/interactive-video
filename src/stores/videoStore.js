@@ -18,6 +18,10 @@ export const useVideoStore = defineStore('video', () => {
   const currentVideoId = ref('rh1')
   const videoHistory = ref([])
   
+  // Таймер для отслеживания времени показа загрузки
+  const loadingStartTime = ref(null)
+  const minLoadingTime = 500 // 0.5 секунды в миллисекундах
+  
   // Конфигурация видео из config
   const videos = ref(videoConfig.videoFragments)
   
@@ -47,6 +51,16 @@ export const useVideoStore = defineStore('video', () => {
   const progressPercentage = computed(() => {
     if (duration.value === 0) return 0
     return (currentTime.value / duration.value) * 100
+  })
+  
+  // Умное отображение загрузки - показываем только если прошло больше 0.5 секунды
+  const shouldShowLoading = computed(() => {
+    if (!isTransitioning.value) return false
+    
+    if (loadingStartTime.value === null) return false
+    
+    const elapsedTime = Date.now() - loadingStartTime.value
+    return elapsedTime >= minLoadingTime
   })
   
   const allVideosLoaded = computed(() => {
@@ -282,6 +296,14 @@ export const useVideoStore = defineStore('video', () => {
    */
   function setTransitioning(transitioning) {
     isTransitioning.value = transitioning
+    
+    if (transitioning) {
+      // Начинаем отсчет времени показа загрузки
+      loadingStartTime.value = Date.now()
+    } else {
+      // Сбрасываем таймер при завершении загрузки
+      loadingStartTime.value = null
+    }
   }
   
   /**
@@ -425,6 +447,7 @@ export const useVideoStore = defineStore('video', () => {
     hideChoice,
     setLoading,
     setTransitioning,
+    shouldShowLoading,
     resetChoiceState,
     switchToVideo,
     shouldShowMidChoice,

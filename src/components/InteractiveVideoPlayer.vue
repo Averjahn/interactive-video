@@ -17,8 +17,8 @@
         Ваш браузер не поддерживает видео.
       </video>
       
-      <!-- Индикатор загрузки и переходов -->
-      <div v-if="videoStore.isLoading || videoStore.isTransitioning" class="loading-overlay">
+      <!-- Индикатор загрузки и переходов (показываем только если прошло больше 0.5 секунды) -->
+      <div v-if="videoStore.isLoading || videoStore.shouldShowLoading" class="loading-overlay">
         <div class="loading-spinner"></div>
         <p>{{ videoStore.transitionText }}</p>
       </div>
@@ -311,6 +311,8 @@ function handleChoice(option) {
         if (mainVideoRef.value) {
           // Проверяем готовность видео перед воспроизведением
           if (mainVideoRef.value.readyState >= 3) { // HAVE_FUTURE_DATA
+            // Видео готово - сразу скрываем индикатор загрузки
+            videoStore.setTransitioning(false)
             videoStore.addLoadingLog(option.videoId, 'start', `▶️ Видео готово, запускаем воспроизведение...`, {
               videoElement: !!mainVideoRef.value,
               videoSrc: mainVideoRef.value.src,
@@ -322,8 +324,6 @@ function handleChoice(option) {
               duration: mainVideoRef.value.duration,
               readyState: mainVideoRef.value.readyState
             })
-            // Мгновенно скрываем индикатор загрузки
-            videoStore.setTransitioning(false)
           }).catch(error => {
             videoStore.addLoadingLog(option.videoId, 'error', `⚠️ Автозапуск заблокирован браузером: ${error.message}`, {
               error: error,
