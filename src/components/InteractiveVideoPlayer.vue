@@ -24,26 +24,13 @@
       </div>
       
       <!-- Оверлей с выбором -->
-      <div v-if="videoStore.showChoices" class="choice-overlay">
-        <div class="choice-content">
-          <h3 class="choice-title">{{ currentChoiceTitle }}</h3>
-          <div class="choice-buttons">
-            <button 
-              v-for="option in currentChoiceOptions"
-              :key="option.id"
-              @click="handleChoice(option)"
-              class="choice-btn"
-              :class="getButtonClass(option.id)"
-              :disabled="!isOptionAvailable(option)"
-            >
-              {{ option.label }}
-              <span v-if="option.description" class="choice-description">
-                {{ option.description }}
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
+      <ChoiceOverlay
+        v-if="videoStore.showChoices"
+        :title="currentChoiceTitle"
+        :choices="currentChoiceOptions"
+        :show="videoStore.showChoices"
+        @choice-selected="handleChoice"
+      />
     </div>
     
     <!-- Скрытые видео для предзагрузки -->
@@ -64,6 +51,7 @@
 <script setup>
 import { ref, computed, onMounted, nextTick } from 'vue'
 import { useVideoStore } from '@/stores/videoStore'
+import ChoiceOverlay from './ChoiceOverlay.vue'
 
 // ========================================
 // STORES
@@ -399,112 +387,9 @@ function isOptionAvailable(option) {
   display: block;
 }
 
-.choice-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-}
+/* Стили для выбора теперь в ChoiceOverlay.vue */
 
-.choice-content {
-  text-align: center;
-  max-width: 600px;
-  padding: 2rem;
-}
-
-.choice-title {
-  color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-}
-
-.choice-buttons {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.choice-btn {
-  padding: 1rem 1.5rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  min-width: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.choice-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-}
-
-.choice-btn:active {
-  transform: translateY(0);
-}
-
-.choice-description {
-  font-size: 0.9rem;
-  font-weight: normal;
-  opacity: 0.9;
-}
-
-/* Стили для разных типов кнопок */
-.continue-btn {
-  background: linear-gradient(45deg, #00b894, #00a085);
-}
-
-.continue-btn:hover {
-  background: linear-gradient(45deg, #00a085, #00b894);
-}
-
-.switch-btn {
-  background: linear-gradient(45deg, #74b9ff, #0984e3);
-}
-
-.switch-btn:hover {
-  background: linear-gradient(45deg, #0984e3, #74b9ff);
-}
-
-.chronicle-btn {
-  background: linear-gradient(45deg, #fdcb6e, #e17055);
-}
-
-.chronicle-btn:hover {
-  background: linear-gradient(45deg, #e17055, #fdcb6e);
-}
-
-.reconstruction-btn {
-  background: linear-gradient(45deg, #a29bfe, #6c5ce7);
-}
-
-.reconstruction-btn:hover {
-  background: linear-gradient(45deg, #6c5ce7, #a29bfe);
-}
-
-.restart-btn {
-  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-}
-
-.restart-btn:hover {
-  background: linear-gradient(45deg, #ee5a24, #ff6b6b);
-}
+/* Стили для кнопок теперь в ChoiceOverlay.vue */
 
 /* Стили для индикатора загрузки */
 .loading-overlay {
