@@ -139,7 +139,7 @@ function selectChoice(choice) {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  min-width: 240px;
+  min-width: 280px;
   position: relative;
   overflow: hidden;
   animation: fadeInUp 0.6s ease;

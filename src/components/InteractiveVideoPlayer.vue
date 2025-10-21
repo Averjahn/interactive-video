@@ -339,26 +339,7 @@ function handleChoice(option) {
   }
 }
 
-/**
- * Получает CSS класс для кнопки
- */
-function getButtonClass(optionId) {
-  const classes = {
-    'continue-drawn': 'continue-btn',
-    'switch-puppet': 'switch-btn',
-    'show-chronicle': 'chronicle-btn',
-    'show-reconstruction': 'reconstruction-btn',
-    'watch-again': 'restart-btn'
-  }
-  return classes[optionId] || 'default-btn'
-}
-
-/**
- * Проверяет, доступна ли опция
- */
-function isOptionAvailable(option) {
-  return videoStore.videosLoaded[option.videoId] || false
-}
+// Методы для кнопок теперь в ChoiceOverlay.vue
 </script>
 
 <style scoped>
@@ -445,23 +426,6 @@ function isOptionAvailable(option) {
     padding: 1rem;
   }
   
-  .choice-buttons {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-  }
-  
-  .choice-btn {
-    font-size: 1rem;
-    padding: 0.8rem 1rem;
-    min-width: 140px;
-    flex: 1;
-    max-width: 200px;
-  }
-  
-  .choice-title {
-    font-size: 1.2rem;
-  }
+  /* Стили для кнопок теперь в ChoiceOverlay.vue */
 }
 </style>
