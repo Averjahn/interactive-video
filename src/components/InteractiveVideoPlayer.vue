@@ -561,15 +561,18 @@ function isOptionAvailable(option) {
   }
   
   .choice-buttons {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
   }
   
   .choice-btn {
     font-size: 1rem;
-    padding: 0.8rem 1.5rem;
-    min-width: 180px;
+    padding: 0.8rem 1rem;
+    min-width: 140px;
+    flex: 1;
+    max-width: 200px;
   }
   
   .choice-title {
