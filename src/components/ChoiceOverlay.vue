@@ -171,7 +171,7 @@ function selectChoice(choice) {
 }
 
 .choice-button--second {
-  background: linear-gradient(45deg, #74b9ff, #0984e3);
+  background: #74b9ff;
 }
 
 .choice-button--third {
@@ -184,12 +184,13 @@ function selectChoice(choice) {
 
 /* Анимация увеличения при наведении */
 .choice-button:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  filter: brightness(1.1);
 }
 
 .choice-button:active {
-  transform: scale(1.02);
+  transform: scale(1.05);
 }
 
 /* Анимации */
