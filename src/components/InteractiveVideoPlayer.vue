@@ -306,34 +306,48 @@ function handleChoice(option) {
   } else {
     // Переключаемся на выбранное видео
     if (videoStore.switchToVideo(option.videoId, `Загрузка ${option.label}...`)) {
-      // Автоматически запускаем воспроизведение
+      // Мгновенно запускаем воспроизведение без задержек
       nextTick(() => {
-        setTimeout(() => {
-          if (mainVideoRef.value) {
-            videoStore.addLoadingLog(option.videoId, 'start', `▶️ Пытаемся запустить автовоспроизведение...`, {
+        if (mainVideoRef.value) {
+          // Проверяем готовность видео перед воспроизведением
+          if (mainVideoRef.value.readyState >= 3) { // HAVE_FUTURE_DATA
+            videoStore.addLoadingLog(option.videoId, 'start', `▶️ Видео готово, запускаем воспроизведение...`, {
               videoElement: !!mainVideoRef.value,
               videoSrc: mainVideoRef.value.src,
               readyState: mainVideoRef.value.readyState
             })
             mainVideoRef.value.play().then(() => {
-              videoStore.addLoadingLog(option.videoId, 'canplay', `🎉 Автовоспроизведение успешно запущено!`, {
-                currentTime: mainVideoRef.value.currentTime,
-                duration: mainVideoRef.value.duration,
-                readyState: mainVideoRef.value.readyState
-              })
-              videoStore.setTransitioning(false)
-            }).catch(error => {
-              videoStore.addLoadingLog(option.videoId, 'error', `⚠️ Автозапуск заблокирован браузером: ${error.message}`, {
-                error: error,
-                errorName: error.name,
-                errorMessage: error.message,
-                videoSrc: mainVideoRef.value.src,
-                readyState: mainVideoRef.value.readyState
-              })
-              videoStore.setTransitioning(false)
+            videoStore.addLoadingLog(option.videoId, 'canplay', `🎉 Автовоспроизведение успешно запущено!`, {
+              currentTime: mainVideoRef.value.currentTime,
+              duration: mainVideoRef.value.duration,
+              readyState: mainVideoRef.value.readyState
             })
+            // Мгновенно скрываем индикатор загрузки
+            videoStore.setTransitioning(false)
+          }).catch(error => {
+            videoStore.addLoadingLog(option.videoId, 'error', `⚠️ Автозапуск заблокирован браузером: ${error.message}`, {
+              error: error,
+              errorName: error.name,
+              errorMessage: error.message,
+              videoSrc: mainVideoRef.value.src,
+              readyState: mainVideoRef.value.readyState
+            })
+            videoStore.setTransitioning(false)
+          })
+          } else {
+            // Видео еще не готово, ждем события canplay
+            videoStore.addLoadingLog(option.videoId, 'start', `⏳ Видео еще загружается, ждем готовности...`, {
+              readyState: mainVideoRef.value.readyState
+            })
+            mainVideoRef.value.addEventListener('canplay', () => {
+              mainVideoRef.value.play().then(() => {
+                videoStore.setTransitioning(false)
+              }).catch(() => {
+                videoStore.setTransitioning(false)
+              })
+            }, { once: true })
           }
-        }, 50)
+        }
       })
     }
   }

@@ -325,12 +325,12 @@ export const useVideoStore = defineStore('video', () => {
       lastTransition: historyEntry
     })
     
-    // Скрываем выбор и показываем переход
+    // Скрываем выбор и мгновенно переключаемся
     showChoices.value = false
     isTransitioning.value = true
     transitionText.value = transitionMessage
     
-    // Переключаемся на выбранное видео
+    // Мгновенное переключение на выбранное видео
     currentVideoSrc.value = videoSrc
     currentVideoId.value = videoId
     hasShownChoice.value = false
