@@ -74,14 +74,14 @@ export const useInteractiveStore = defineStore('interactive', () => {
    */
   function showChoice(choicePoint) {
     currentChoice.value = choicePoint
-    console.log('Показываем выбор:', choicePoint.title)
+    // Показываем выбор
   }
   
   /**
    * Обрабатывает выбранный вариант
    */
   async function handleChoiceSelected(choice) {
-    console.log('Выбран вариант:', choice)
+    // Выбран вариант
     
     // Добавляем в историю
     choiceHistory.value.push({

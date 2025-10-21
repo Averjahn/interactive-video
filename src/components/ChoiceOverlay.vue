@@ -110,8 +110,8 @@ function selectChoice(choice) {
 }
 
 .choice-title {
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
+  font-size: 40px;
+  margin-bottom: 48px;
   text-align: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   font-weight: bold;
@@ -124,15 +124,14 @@ function selectChoice(choice) {
 
 .choices-buttons {
   display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  gap: 24px;
   justify-content: center;
-  max-width: 800px;
+  max-width: 900px;
 }
 
 .choice-button {
-  padding: 1.2rem 2.5rem;
-  font-size: 1.3rem;
+  padding: 19px 40px;
+  font-size: 21px;
   font-weight: bold;
   color: white;
   border: none;
@@ -140,7 +139,7 @@ function selectChoice(choice) {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  min-width: 220px;
+  min-width: 240px;
   position: relative;
   overflow: hidden;
   animation: fadeInUp 0.6s ease;
@@ -226,32 +225,31 @@ function selectChoice(choice) {
 /* Адаптивность */
 @media (max-width: 768px) {
   .choice-title {
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
+    font-size: 29px;
+    margin-bottom: 32px;
   }
   
   .choice-button {
-    font-size: 1.1rem;
-    padding: 1rem 2rem;
+    font-size: 18px;
+    padding: 16px 32px;
     min-width: 180px;
   }
   
   .choices-buttons {
-    flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .choice-title {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 24px;
+    margin-bottom: 24px;
   }
   
   .choice-button {
-    font-size: 1rem;
-    padding: 0.8rem 1.5rem;
+    font-size: 16px;
+    padding: 13px 24px;
     min-width: 160px;
   }
 }

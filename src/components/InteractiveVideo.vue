@@ -112,7 +112,7 @@ onMounted(() => {
  * Обработчик готовности плеера
  */
 function onPlayerReady() {
-      console.log('Плеер готов к воспроизведению')
+      // Плеер готов к воспроизведению
   isLoading.value = false
 }
 
@@ -160,7 +160,7 @@ async function handleChoiceSelected(choice) {
  * Обработчик завершения видео
  */
 function onVideoEnded() {
-  console.log('Видео завершено')
+  // Видео завершено
   // Здесь можно добавить логику для завершения интерактивного видео
 }
 

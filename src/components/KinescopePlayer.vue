@@ -136,7 +136,7 @@ function handleMessage(event) {
  * Обработчик загрузки iframe
  */
 function onIframeLoad() {
-  console.log('Iframe загружен')
+  // Iframe загружен
 }
 
 /**

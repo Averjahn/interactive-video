@@ -96,17 +96,7 @@ export const useVideoStore = defineStore('video', () => {
       choice: '#9b59b6'
     }
     
-    console.log(
-      `%c[${timestamp}] %c${videoType.toUpperCase()} %c${event.toUpperCase()}: %c${message}`,
-      'color: #666; font-weight: bold;',
-      `color: ${colors[videoType] || '#333'}; font-weight: bold;`,
-      `color: ${colors[event] || '#333'}; font-weight: bold;`,
-      'color: #333;'
-    )
-    
-    if (details) {
-      console.log('📋 Детали:', details)
-    }
+    // Логирование отключено для продакшена
   }
   
   /**
