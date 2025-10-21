@@ -182,29 +182,14 @@ function selectChoice(choice) {
   background: linear-gradient(45deg, #fdcb6e, #e17055);
 }
 
-/* Эффект блеска при наведении */
-.choice-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.choice-button:hover::before {
-  left: 100%;
-}
-
+/* Анимация увеличения при наведении */
 .choice-button:hover {
-  transform: translateY(-3px) scale(1.05);
+  transform: scale(1.05);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 .choice-button:active {
-  transform: translateY(-1px) scale(1.02);
+  transform: scale(1.02);
 }
 
 /* Анимации */
